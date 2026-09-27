@@ -1,0 +1,66 @@
+import * as React from "react";
+import { cn } from "@/lib/utils";
+
+export interface SwitchProps
+  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "onChange"> {
+  checked?: boolean;
+  defaultChecked?: boolean;
+  onCheckedChange?: (checked: boolean) => void;
+}
+
+const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
+  (
+    {
+      className,
+      checked: controlledChecked,
+      defaultChecked = false,
+      onCheckedChange,
+      disabled,
+      ...props
+    },
+    ref
+  ) => {
+    const isControlled = controlledChecked !== undefined;
+    const [uncontrolledChecked, setUncontrolledChecked] =
+      React.useState(defaultChecked);
+    const checked = isControlled ? controlledChecked : uncontrolledChecked;
+
+    const toggle = () => {
+      if (disabled) return;
+      const next = !checked;
+      if (!isControlled) {
+        setUncontrolledChecked(next);
+      }
+      onCheckedChange?.(next);
+    };
+
+    return (
+      <button
+        type="button"
+        role="switch"
+        aria-checked={checked}
+        data-state={checked ? "checked" : "unchecked"}
+        disabled={disabled}
+        onClick={toggle}
+        ref={ref}
+        className={cn(
+          "peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0B0D] disabled:cursor-not-allowed disabled:opacity-50",
+          checked ? "bg-emerald-500" : "bg-zinc-800",
+          className
+        )}
+        {...props}
+      >
+        <span
+          data-state={checked ? "checked" : "unchecked"}
+          className={cn(
+            "pointer-events-none block h-4 w-4 rounded-full bg-white shadow-lg ring-0 transition-transform",
+            checked ? "translate-x-4" : "translate-x-0"
+          )}
+        />
+      </button>
+    );
+  }
+);
+Switch.displayName = "Switch";
+
+export { Switch };
