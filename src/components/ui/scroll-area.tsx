@@ -6,11 +6,17 @@ interface ScrollAreaProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const ScrollArea = React.forwardRef<HTMLDivElement, ScrollAreaProps>(
-  ({ className, children, ...props }, ref) => {
+  ({ className, children, style, ...props }, ref) => {
     return (
       <div
         ref={ref}
-        className={cn("relative overflow-auto", className)}
+        data-slot="scroll-area"
+        className={cn("relative overflow-auto scroll-smooth overscroll-contain", className)}
+        style={{
+          willChange: "scroll-position",
+          WebkitOverflowScrolling: "touch",
+          ...style,
+        }}
         {...props}
       >
         {children}

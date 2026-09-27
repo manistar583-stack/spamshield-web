@@ -25,10 +25,12 @@ app.get("/api/health", (req, res) => {
 // Import backend features
 import spamRouter from "./routes/spam";
 import statsRouter from "./routes/stats";
+import chatRouter from "./routes/chat";
 import "./realtime/socket";
 
 app.use("/api/spam", spamRouter);
 app.use("/api/stats", statsRouter);
+app.use("/api/chat", chatRouter);
 
 async function startServer() {
   if (useMongo && MONGODB_URI) {

@@ -3,7 +3,7 @@
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/geist";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
     --font-heading: var(--font-sans);
@@ -49,7 +49,7 @@
 }
 
 :root {
-    --background: oklch(1 0 0);
+    --background: oklch(0.985 0.002 247);
     --foreground: oklch(0.145 0 0);
     --card: oklch(1 0 0);
     --card-foreground: oklch(0.145 0 0);
@@ -57,15 +57,15 @@
     --popover-foreground: oklch(0.145 0 0);
     --primary: oklch(0.205 0 0);
     --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
+    --secondary: oklch(0.96 0 0);
     --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
+    --muted: oklch(0.96 0 0);
+    --muted-foreground: oklch(0.48 0 0);
+    --accent: oklch(0.96 0 0);
     --accent-foreground: oklch(0.205 0 0);
     --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
+    --border: oklch(0.9 0 0);
+    --input: oklch(0.9 0 0);
     --ring: oklch(0.708 0 0);
     --chart-1: oklch(0.87 0 0);
     --chart-2: oklch(0.556 0 0);
@@ -73,13 +73,13 @@
     --chart-4: oklch(0.371 0 0);
     --chart-5: oklch(0.269 0 0);
     --radius: 0.625rem;
-    --sidebar: oklch(0.985 0 0);
+    --sidebar: oklch(1 0 0);
     --sidebar-foreground: oklch(0.145 0 0);
     --sidebar-primary: oklch(0.205 0 0);
     --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
+    --sidebar-accent: oklch(0.96 0 0);
     --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
+    --sidebar-border: oklch(0.9 0 0);
     --sidebar-ring: oklch(0.708 0 0);
 }
 
@@ -120,11 +120,173 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    }
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-background text-foreground;
-    }
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
   html {
     @apply font-sans;
-    }
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
 }
+
+/* GPU Accelerated Smooth Scrolling for all scroll containers */
+.overflow-auto,
+.overflow-y-auto,
+.overflow-x-auto,
+[data-slot="scroll-area"] {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  will-change: scroll-position;
+}
+
+/* Light Mode Overrides for hardcoded dark classes */
+html:not(.dark) {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+html:not(.dark) .bg-\[\#0A0B0D\] {
+  background-color: #f8fafc !important;
+}
+
+html:not(.dark) .bg-\[\#0F1115\] {
+  background-color: #ffffff !important;
+  color: #0f172a;
+}
+
+html:not(.dark) .bg-\[\#0F1115\]\/50 {
+  background-color: rgba(255, 255, 255, 0.85) !important;
+}
+
+html:not(.dark) .border-zinc-800,
+html:not(.dark) .border-zinc-900 {
+  border-color: #e2e8f0 !important;
+}
+
+html:not(.dark) .text-slate-200 {
+  color: #1e293b !important;
+}
+
+html:not(.dark) .text-slate-400 {
+  color: #64748b !important;
+}
+
+html:not(.dark) h1.text-white,
+html:not(.dark) h2.text-white,
+html:not(.dark) h3.text-white,
+html:not(.dark) h4.text-white,
+html:not(.dark) span.text-white:not([class*="bg-"]):not([class*="badge"]),
+html:not(.dark) p.text-white,
+html:not(.dark) .text-zinc-100 {
+  color: #0f172a !important;
+}
+
+html:not(.dark) .text-zinc-400 {
+  color: #64748b !important;
+}
+
+html:not(.dark) .text-zinc-500 {
+  color: #64748b !important;
+}
+
+html:not(.dark) .text-zinc-300 {
+  color: #334155 !important;
+}
+
+html:not(.dark) .bg-zinc-900,
+html:not(.dark) .bg-zinc-900\/50,
+html:not(.dark) .bg-zinc-900\/90 {
+  background-color: #f1f5f9 !important;
+}
+
+html:not(.dark) input.bg-\[\#0A0B0D\],
+html:not(.dark) textarea.bg-\[\#0A0B0D\] {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+html:not(.dark) input.bg-\[\#0A0B0D\]::placeholder,
+html:not(.dark) textarea.bg-\[\#0A0B0D\]::placeholder {
+  color: #94a3b8 !important;
+}
+
+html:not(.dark) thead.bg-\[\#0F1115\] {
+  background-color: #f8fafc !important;
+}
+
+html:not(.dark) tr.hover\:bg-white\/5:hover {
+  background-color: #f1f5f9 !important;
+}
+
+html:not(.dark) button.border-zinc-800 {
+  border-color: #cbd5e1 !important;
+  color: #334155 !important;
+}
+
+html:not(.dark) button.border-zinc-800:hover {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+/* Custom Visible Scrollbar with Separate Distinct Accent Color */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #059669 #e2e8f0;
+}
+
+.dark * {
+  scrollbar-width: thin;
+  scrollbar-color: #10b981 #181b20;
+}
+
+/* WebKit & Chromium Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e2e8f0;
+  border-radius: 9999px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #181b20;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #059669;
+  border-radius: 9999px;
+  border: 2px solid #e2e8f0;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #10b981;
+  border-radius: 9999px;
+  border: 2px solid #181b20;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #047857;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #34d399;
+  box-shadow: 0 0 10px rgba(52, 211, 153, 0.4);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+

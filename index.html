@@ -7,6 +7,21 @@
     <meta name="description" content="A Real-time SMS Spam & Number Bomber Protection Web Application." />
     <meta property="og:title" content="SpamShield Web" />
     <meta property="og:description" content="A Real-time SMS Spam & Number Bomber Protection Web Application." />
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('theme') || localStorage.getItem('spamshield_theme');
+          var isDark = saved ? saved === 'dark' : true;
+          if (isDark) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.setAttribute('data-theme', 'dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.setAttribute('data-theme', 'light');
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
